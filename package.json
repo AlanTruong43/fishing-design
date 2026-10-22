@@ -1,0 +1,21 @@
+{
+  "name": "fishing-game-ui",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "vite --open",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "vite": "^8.3.5"
+  },
+  "dependencies": {
+    "@fontsource/press-start-2p": "^5.3.0"
+  },
+  "private": true
+}

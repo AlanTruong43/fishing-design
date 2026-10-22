@@ -1,0 +1,7 @@
+/* screen-specific tweaks live here; shared components are in ui.css */
+.win .body { max-height: calc(100% - 8px); }
+.row > .bar { flex: 1; }
+.list { max-height: 100px; overflow-y: auto; scrollbar-width: none; }
+.stat .bar { width: 50px; flex: none; }
+.dlg { position: absolute; }
+.dlg .text { line-height: 12px; }

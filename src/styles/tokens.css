@@ -1,0 +1,16 @@
+:root {
+  --navy: #222044; --indigo: #28248c; --violet: #622aff; --violet-l: #8f6bff; --violet-d: #3b1a99;
+  --lime: #e3ff37; --lime-d: #a8c21a; --white: #ffffff; --cloud: #dfe6ff;
+  --grey: #6d767e; --grey-l: #b4bcc4; --grey-d: #3a3d4a;
+  --pink: #ed47a4; --pink-d: #a82a74; --green: #8ad22e; --green-m: #169f00; --green-d: #0b5e1c;
+  --water-l: #4fb3ff; --water: #2a7de1; --water-d: #1b4fb0;
+  --wood: #c88a4a; --wood-d: #7a4a22; --wood-l: #e8b872;
+  --orange: #ff9a2e; --red: #e5373a; --gold: #ffd23a;
+
+  /* rarity */
+  --r-common: var(--grey-l); --r-uncommon: var(--green); --r-rare: var(--water-l);
+  --r-epic: var(--pink); --r-legendary: var(--gold);
+
+  --px: 3;               /* integer UI scale, set by JS */
+  --bar: 28px;           /* presenter bar height (real px) */
+}
