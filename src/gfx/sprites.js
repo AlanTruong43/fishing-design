@@ -121,29 +121,38 @@ export function iconURL(name) {
 export const iconNames = Object.keys(ICONS);
 
 /* ---------- character & NPC (16x24 maps) ---------- */
-export const PLAYER = [
-  '.....oooooo.....', '....oVVVVVVo....', '...oVVVVVVVVo...', '...oVVVVVVVVo...', '..ooooooooooo...',
-  '...osssssssso...', '...ososwsowso...'.slice(0, 16), '...osssssssso...', '....osssppsso...'.slice(0, 16), '.....oooooooo...',
-  '....olllllllo...', '...ollllllllllo.', '..ollllllllllo..', '..osollllllloso.', '..osollllllloso.',
-  '..ooolllllllooo.', '....oBBBBBBo....', '....oBBooBBo....', '....oBBo.oBBo...', '....oNNo.oNNo...',
-  '...onNNo.onNNo..', '...oooo..oooo...', '................', '................',
-].map(r => r.padEnd(16, '.').slice(0, 16));
-export const NPC = [
-  '.....oooooo.....', '...ooccccccoo...', '..occccccccco...', '..ocsssssssco...', '..ocsowsowsco...'.slice(0, 16),
-  '..ocsssssssco...', '..occwwwwwwco...', '..occwwwwwwco...', '...ocwwwwwco....', '....oooooooo....',
-  '...onnnnnnnno...', '..onnnnnnnnnno..', '.ononnnnnnnnono.', '.osonnnnnnnnoso.', '.osonnnnnnnnoso.',
-  '..oonnnnnnnnoo..', '...oGGGGGGGGo...', '...oGGoooGGGo...', '...oGGo..oGGo...', '...oNNo..oNNo...',
-  '..ooNNo..oNNoo..', '..oooooo.oooooo.', '................', '................',
-].map(r => r.padEnd(16, '.').slice(0, 16));
-export const CH_PAL = { o: C.navy, V: C.violet, s: '#ffcf9f', w: C.navy, p: C.pink, l: C.lime, B: C.waterD, N: C.woodD, n: C.wood, c: C.cloud, G: C.greenD };
-export function drawMap(g, rows, x, y, pal = CH_PAL, flip = false) {
+const fix = (rows) => rows.map((r) => r.padEnd(16, '.').slice(0, 16));
+export const PLAYER = fix([
+  '.....oooooo.....', '...ooHhhhhHoo...', '..oHhhhhhhhhHo..', '..ohhhhhhhhhho..', '..ohhhhhhhhhho..',
+  '..ohhsshhsshho..', '..ossssssssso...', '..ossessssesso..', '..ossessssesso..', '..osccsmmsccso..',
+  '....ooosssooo...', '...obbbbbbbbbo..', '..obbbbbbbbbbbo.', '..osobbbbbbboso.', '..osobbbBBbboso.',
+  '..ooobbbbbbooo..',
+  '....ojjjjjjo....', '....ojjJJjjo....', '....ojjo.ojjo...', '....ojjo.ojjo...', '....ojjo.ojjo...',
+  '...okkko.okkko..', '...ooooo.ooooo..', '................',
+]);
+export const PLAYER_LEGS_B = fix([
+  '....ojjjjjjo....', '....ojjJJjjo....', '...ojjo...ojjo..', '...ojjo....ojjo.', '..ojjo......ojjo',
+  '..okko......okko', '..oooo......oooo', '................',
+]);
+export const NPC = fix([
+  '.....oooooo.....', '...ootttttttoo..', '...otttttttttTo.', '...oRRRRRRRRRTo.', '.oottttttttttToo',
+  '..onnSSSSSSSnno.', '..onnsesssesnno.', '..onnssssssssno.', '..onnmmmmmmmnno.', '...onnssssssno..',
+  '....onnnnnnno...', '...oggggggggggo.', '..ogjggggggjggo.', '..osojjjjjjjjoso', '..osojjyjjyjjoso',
+  '..ooojjjjjjjooo.',
+  '...ojjjjjjjjjo..', '...ojjJjjJjjjo..', '...ojjo..ojjo...', '...ojjo..ojjo...', '...ojjo..ojjo...',
+  '..okkko..okkko..', '..oooo....oooo..', '................',
+]);
+export const PL_PAL = { o: '#26253f', h: '#eab43e', H: '#b87a2a', s: '#ffd2a8', S: '#e2a47e', g: '#3d6a9a', l: '#bfe6f4', w: '#ffffff', c: '#f09a8a', e: '#2a2a44', m: '#c8584a', b: '#4aa4e8', B: '#2f78c0', j: '#4d68ac', J: '#2e4380', k: '#3b2a2e' };
+export const NPC_PAL = { o: '#26253f', t: '#f2d79c', T: '#c79a58', R: '#b8402e', n: '#6a3e2a', s: '#f0b890', S: '#d79a78', e: '#2a2a44', m: '#4a2a1c', g: '#3f9a5a', j: '#3f5fa6', J: '#2b4486', y: '#e8c060', k: '#4a2a1e' };
+export const CH_PAL = PL_PAL;
+export function drawMap(g, rows, x, y, pal = PL_PAL, flip = false) {
   rows.forEach((row, j) => [...row].forEach((ch, i) => {
     const col = pal[ch]; if (!col) return;
     g.fillStyle = col; g.fillRect(x + (flip ? row.length - 1 - i : i), y + j, 1, 1);
   }));
 }
-function mapURL(rows) { const c = mk(16, 24), g = c.getContext('2d'); drawMap(g, rows, 0, 0); return c.toDataURL(); }
-export const portraitURL = { player: () => mapURL(PLAYER), npc: () => mapURL(NPC) };
+function mapURL(rows, pal) { const c = mk(16, 24), g = c.getContext('2d'); drawMap(g, rows, 0, 0, pal); return c.toDataURL(); }
+export const portraitURL = { player: () => mapURL(PLAYER, PL_PAL), npc: () => mapURL(NPC, NPC_PAL) };
 
 /* ---------- install: CSS vars for nine-slices + cursor ---------- */
 export function installSkins() {
